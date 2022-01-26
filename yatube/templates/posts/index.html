@@ -43,7 +43,7 @@
         <h1>{{ title }}</h1>
           
         <article>
-          <ul>
+          {% comment %} <ul>
             <li>
               Автор: Лев Толстой
             </li>
@@ -59,7 +59,24 @@
             и Бабарыкинымъ, ругалъ Сержпутовскому и ничего не сдѣлалъ, вотъ 3 упрека, которыя дѣлаю с
             ебѣ за нынѣшній день. (3)
           </p>
-          <a href="group_list.html">все записи группы</a>
+          {% comment %} <a href="group_list.html">все записи группы</a> {% endcomment %}
+          {% comment %} <a href = "http://127.0.0.1:8000/group/Klassic">все записи группы</a> {% endcomment %}
+          {% comment %} {% if post.group %}   
+            <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
+          {% endif %}  {% endcomment %} 
+          {% for post in posts %}
+            <ul>
+              <li>
+                Автор: {{ post.author.get_full_name }}
+              </li>
+              <li>
+                Дата публикации: {{ post.pub_date|date:"d E Y" }}
+              </li>
+            </ul>
+            <p>{{ post.text }}</p>    
+            <a href="http://127.0.0.1:8000/group/Klassic">все записи группы</a>
+            {% if not forloop.last %}<hr>{% endif %}
+          {% endfor %}
         </article>
         <hr>
         <article>
@@ -83,8 +100,8 @@
             накрылъ Крыжановскій, что, признаюсь, было мнѣ не совсѣмъ пріятно. Упрекаю себя за 
             безхарактерность, что не высидѣлъ дома, и зa праздность цѣлаго дня. Это главный пунктъ. (2)
           </p>
-          {% comment %} <a href="group_list.html">все записи группы</a> {% endcomment %}
-          <a class="navbar-brand" href="{% url 'posts:index' %}">все записи группы</a>
+          <a href="group_list.html">все записи группы</a>
+          {% comment %} <a class="navbar-brand" href="{% url 'posts:index' %}">все записи группы</a> {% endcomment %}
         </article>
         <hr>
         <article>
